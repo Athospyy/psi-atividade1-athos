@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Livraria</title>
+</head>
+<body>
+    <h1>Catálogo de Livros</h1>
+    
+    {% for livro in livros %}
+        <div>
+            <h2>{{ livro.titulo }}</h2>
+            <p>Autor: {{ livro.autor }}</p>
+            <p>Ano: {{ livro.ano }}</p>
+            <a href="/livro/{{ livro.id }}">Ver detalhes</a>
+        </div>
+    {% endfor %}
+</body>
+</html>
