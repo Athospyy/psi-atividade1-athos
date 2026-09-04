@@ -1,18 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Livraria</title>
-</head>
-<body>
-    <h1>Catálogo de Livros</h1>
-    
-    {% for livro in livros %}
-        <div>
-            <h2>{{ livro.titulo }}</h2>
-            <p>Autor: {{ livro.autor }}</p>
-            <p>Ano: {{ livro.ano }}</p>
-            <a href="/livro/{{ livro.id }}">Ver detalhes</a>
-        </div>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block titulo %}Lista de Livros{% endblock %}
+
+{% block conteudo %}
+<h1>Livros</h1>
+
+<p>Bem-vindo ao catálogo. Use o campo abaixo para buscar títulos.</p>
+
+<form method="get" action="{{ url_for('index') }}">
+  <input name="q" value="{{ termo or '' }}" placeholder="Buscar por título">
+  <button type="submit">Buscar</button>
+</form>
+
+{% for livro in livros %}
+<div class="card">
+  <h3><a href="{{ url_for('detalhe_livro', livro_id=livro['id']) }}">{{ livro['titulo'] }}</a></h3>
+  <p><strong>Autor:</strong> {{ livro['autor'] }}</p>
+  <p><strong>Ano:</strong> {{ livro['ano'] }}</p>
+  <p><strong>Gênero:</strong> {{ livro['genero'] }}</p>
+</div>
+{% else %}
+<p>Nenhum livro encontrado.</p>
+{% endfor %}
+
+{% endblock %}
