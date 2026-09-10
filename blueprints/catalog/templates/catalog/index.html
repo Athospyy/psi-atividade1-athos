@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Lista de Livros{% endblock %}
+
+{% block conteudo %}
+<h1>Livros</h1>
+
+<p>Bem-vindo ao catálogo. Use o campo abaixo para buscar títulos.</p>
+
+<form method="get" action="{{ url_for('catalog.index') }}">
+  <input name="q" value="{{ termo or '' }}" placeholder="Buscar por título">
+  <button type="submit">Buscar</button>
+</form>
+
+{% for livro in livros %}
+<div class="card">
+  <h3><a href="{{ url_for('catalog.ver_livro', livro_id=livro['id']) }}">{{ livro['titulo'] }}</a></h3>
+  <p><strong>Autor:</strong> {{ livro['autor'] }}</p>
+  <p><strong>Ano:</strong> {{ livro['ano'] }}</p>
+  <p><strong>Gênero:</strong> {{ livro['genero'] }}</p>
+</div>
+{% else %}
+<p>Nenhum livro encontrado.</p>
+{% endfor %}
+
+{% endblock %}

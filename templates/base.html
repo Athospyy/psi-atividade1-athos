@@ -4,30 +4,26 @@
 <meta charset="UTF-8">
 <title>{% block titulo %}Livraria{% endblock %}</title>
 <style>
-nav { background: #333; color: white; padding: 10px; }
+body { font-family: Arial, sans-serif; }
+nav { background: #333; padding: 10px; }
 nav a { color: white; margin-right: 15px; text-decoration: none; }
-.container { max-width: 700px; margin: 20px auto; }
+.container { width: 700px; margin: 20px auto; }
 .card { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; }
 .erro { color: red; }
-input, textarea, select, button { display: block; margin-bottom: 10px;
-padding: 8px; width: 100%; }
+input, button { width: 100%; margin-bottom: 10px; padding: 8px; }
 </style>
 </head>
 <body>
 <nav>
-<a href="{{ url_for('index') }}">Início</a>
-{% set usuario_nav = session.get('usuario') %}
-{% if usuario_nav %}
-	<a href="{{ url_for('logout') }}">Sair ({{ usuario_nav }})</a>
+<a href="{{ url_for('catalog.index') }}">Início</a>
+{% if session.get('usuario') %}
+    <a href="{{ url_for('auth.logout') }}">Sair ({{ session['usuario'] }})</a>
 {% else %}
-	<a href="{{ url_for('login') }}">Entrar</a>
+    <a href="{{ url_for('auth.login') }}">Entrar</a>
 {% endif %}
 </nav>
 <div class="container">
 {% block conteudo %}{% endblock %}
 </div>
-<footer style="text-align:center; color:#666; margin:20px 0;">
-	Catálogo de livros — trabalho do aluno
-</footer>
 </body>
 </html>
